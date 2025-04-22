@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COGEX - Corregedoria do Foro Extrajudicial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js" defer></script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="logo-container">
+            <img src="assets/img/logo-cogex.png" alt="COGEX" class="logo">
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#inicio" class="active">Início</a></li>
+                <li><a href="#estrutura">Estrutura</a></li>
+                <li><a href="#projetos">Projetos</a></li>
+                <li><a href="#resultados">Resultados</a></li>
+            </ul>
+        </nav>
+        <div class="mode-selector">
+            <select id="presentation-mode">
+                <option value="auto">Modo Automático</option>
+                <option value="edit">Modo Edição</option>
+            </select>
+        </div>
+    </header>
+
+    <main class="site-main">
+        <section class="metrics-dashboard">
+            <h2 class="section-title">Métricas de Desempenho</h2>
+            <div class="metrics-container">
+                <div class="metric-card">
+                    <div class="metric-icon">⚖️</div>
+                    <div class="metric-value">125.6M</div>
+                    <div class="metric-label">Arrecadação 2024</div>
+                </div>
+                <!-- Mais cards de métricas aqui -->
+            </div>
+        </section>
+
+        <section class="presentation-area">
+            <div class="slide-controls">
+                <button id="prev-slide" class="control-btn">Anterior</button>
+                <span id="slide-counter">Slide 1 de 15</span>
+                <button id="next-slide" class="control-btn">Próximo</button>
+            </div>
+            
+            <div id="slide-container" class="slide-container">
+                <!-- O conteúdo do slide atual será inserido aqui dinamicamente -->
+            </div>
+            
+            <div class="slide-thumbnails">
+                <!-- Miniaturas dos slides serão geradas aqui -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <p>© 2025 COGEX - Corregedoria Geral do Foro Extrajudicial do Maranhão</p>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/slides.js"></script>
+    <script src="assets/js/editor.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
