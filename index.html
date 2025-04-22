@@ -4,28 +4,326 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>COGEX - Corregedoria do Foro Extrajudicial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/animations.css">
+    <style>
+        :root {
+            --color-wine: #5A0F2C;
+            --color-black: #000000;
+            --color-gold: #FFD700;
+            --color-beige: #F5F5DC;
+            --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-medium: 0 8px 15px rgba(0, 0, 0, 0.2);
+            --font-primary: 'Montserrat', sans-serif;
+            --font-secondary: 'Roboto', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-secondary);
+            background-color: var(--color-black);
+            color: #FFFFFF;
+            line-height: 1.6;
+        }
+
+        /* Cabeçalho */
+        .site-header {
+            background-color: var(--color-wine);
+            padding: 1.5rem;
+            border-bottom: 3px solid var(--color-gold);
+            text-align: center;
+            position: relative;
+        }
+        
+        .mode-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        
+        #presentation-mode {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 8px 10px;
+            border: 1px solid var(--color-gold);
+            border-radius: 4px;
+            font-family: var(--font-primary);
+        }
+        
+        .logo-container {
+            margin-bottom: 1rem;
+        }
+        
+        .logo {
+            max-height: 80px;
+        }
+        
+        .site-title {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .slide-counter {
+            font-family: var(--font-secondary);
+            color: var(--color-gold);
+            font-size: 1.2rem;
+        }
+
+        /* Métricas */
+        .metrics-dashboard {
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 2rem;
+            margin: 1rem 0;
+            border-top: 1px solid var(--color-gold);
+            border-bottom: 1px solid var(--color-gold);
+        }
+        
+        .metrics-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .metric-card {
+            text-align: center;
+            padding: 1.5rem;
+            background-color: var(--color-wine);
+            border-radius: 8px;
+            box-shadow: var(--shadow-medium);
+            border: 1px solid var(--color-gold);
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .metric-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--color-gold);
+        }
+        
+        .metric-value {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 2.2rem;
+            color: var(--color-gold);
+            margin-bottom: 0.5rem;
+        }
+        
+        .metric-label {
+            font-family: var(--font-secondary);
+            font-size: 1rem;
+            color: white;
+        }
+
+        /* Área de apresentação */
+        .presentation-area {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .slide-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        
+        .control-btn {
+            background-color: var(--color-wine);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            font-family: var(--font-primary);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border: 1px solid var(--color-gold);
+        }
+        
+        .control-btn:hover {
+            background-color: #7A1F4C;
+        }
+        
+        .slide-container {
+            background-color: #1A1A1A;
+            border-radius: 10px;
+            min-height: 60vh;
+            padding: 2rem;
+            border: 2px solid var(--color-gold);
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        /* Estilos específicos para a capa */
+        .slide-logo {
+            margin: 2rem 0;
+            max-width: 200px;
+        }
+        
+        .slide-title {
+            font-family: var(--font-primary);
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: var(--color-gold);
+            margin-bottom: 1.5rem;
+        }
+        
+        .slide-subtitle {
+            font-family: var(--font-primary);
+            font-weight: 600;
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 2rem;
+        }
+        
+        .slide-author, .slide-role, .slide-period {
+            font-family: var(--font-secondary);
+            margin-bottom: 0.5rem;
+            color: #CCCCCC;
+        }
+        
+        .slide-author {
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+        
+        .slide-role {
+            font-size: 1.2rem;
+        }
+        
+        .slide-period {
+            font-size: 1.1rem;
+            color: var(--color-gold);
+            margin-top: 1rem;
+        }
+        
+        /* Miniaturas de slide */
+        .slide-thumbnails {
+            display: flex;
+            overflow-x: auto;
+            gap: 0.8rem;
+            padding: 1rem 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+        }
+        
+        .thumbnail {
+            min-width: 100px;
+            height: 60px;
+            background-color: var(--color-wine);
+            border: 1px solid #444;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+            font-size: 0.8rem;
+            color: #CCCCCC;
+        }
+        
+        .thumbnail.active {
+            border: 2px solid var(--color-gold);
+            transform: scale(1.05);
+        }
+        
+        .thumbnail:hover {
+            border-color: var(--color-gold);
+            background-color: #7A1F4C;
+        }
+
+        /* Rodapé */
+        .site-footer {
+            background-color: var(--color-wine);
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--color-gold);
+            margin-top: 2rem;
+        }
+        
+        .site-footer p {
+            color: #CCCCCC;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Animações */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .animate-fadeIn {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .animate-slideUp {
+            animation: slideUp 1s ease forwards;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .site-title {
+                font-size: 1.8rem;
+            }
+            
+            .metrics-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .slide-title {
+                font-size: 2rem;
+            }
+            
+            .slide-container {
+                padding: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="mode-selector-container">
-        <select id="presentation-mode">
-            <option value="auto">Modo Automático</option>
-            <option value="edit">Modo Edição</option>
-        </select>
-    </div>
-
     <header class="site-header">
+        <div class="mode-selector">
+            <select id="presentation-mode">
+                <option value="auto">Modo Automático</option>
+                <option value="edit">Modo Edição</option>
+            </select>
+        </div>
         <div class="logo-container">
             <img src="assets/img/COGEX.png" alt="COGEX" class="logo">
         </div>
         <h1 class="site-title">Corregedoria do Foro Extrajudicial</h1>
-        <div class="slide-counter" id="slide-counter">Slide 1 de 15</div>
+        <div class="slide-counter">Slide 1 de 15</div>
     </header>
 
-    <main class="site-main">
-        <div class="metrics-dashboard">
+    <main>
+        <section class="metrics-dashboard">
             <div class="metrics-container">
                 <div class="metric-card">
                     <div class="metric-icon">⚖️</div>
@@ -48,22 +346,43 @@
                     <div class="metric-label">Projetos em Andamento</div>
                 </div>
             </div>
-        </div>
+        </section>
 
-        <div class="presentation-area">
+        <section class="presentation-area">
             <div class="slide-controls">
                 <button id="prev-slide" class="control-btn">Anterior</button>
                 <button id="next-slide" class="control-btn">Próximo</button>
             </div>
             
             <div id="slide-container" class="slide-container">
-                <!-- O conteúdo do slide atual será inserido aqui dinamicamente -->
+                <!-- Slide 1: Capa -->
+                <h2 class="slide-title animate-fadeIn">Corregedoria Geral do Foro Extrajudicial</h2>
+                <h3 class="slide-subtitle animate-slideUp">Apresentação Institucional</h3>
+                <img src="assets/img/COGEX.png" alt="COGEX" class="slide-logo animate-fadeIn">
+                <p class="slide-author animate-slideUp">Des. José Jorge Figueiredo dos Anjos</p>
+                <p class="slide-role animate-slideUp">Corregedor Geral do Foro Extrajudicial</p>
+                <p class="slide-period animate-slideUp">GESTÃO 2024-2026</p>
             </div>
             
-            <div class="slide-thumbnails" id="slide-thumbnails">
-                <!-- Miniaturas dos slides serão geradas aqui -->
+            <div class="slide-thumbnails">
+                <!-- Miniaturas dos slides -->
+                <div class="thumbnail active">Slide 1<br>Capa</div>
+                <div class="thumbnail">Slide 2<br>A COGEX</div>
+                <div class="thumbnail">Slide 3<br>Objetivo</div>
+                <div class="thumbnail">Slide 4<br>Importância</div>
+                <div class="thumbnail">Slide 5<br>Contexto</div>
+                <div class="thumbnail">Slide 6<br>Estrutura</div>
+                <div class="thumbnail">Slide 7<br>Equipe</div>
+                <div class="thumbnail">Slide 8<br>Funções</div>
+                <div class="thumbnail">Slide 9<br>Organograma</div>
+                <div class="thumbnail">Slide 10<br>Iniciativas</div>
+                <div class="thumbnail">Slide 11<br>Projetos</div>
+                <div class="thumbnail">Slide 12<br>Parcerias</div>
+                <div class="thumbnail">Slide 13<br>Resultados</div>
+                <div class="thumbnail">Slide 14<br>Consolidado</div>
+                <div class="thumbnail">Slide 15<br>Encerramento</div>
             </div>
-        </div>
+        </section>
     </main>
 
     <footer class="site-footer">
@@ -71,9 +390,105 @@
         <p>Des. José Jorge Figueiredo dos Anjos - Corregedor Geral do Foro Extrajudicial</p>
     </footer>
 
-    <script src="assets/js/data.js"></script>
-    <script src="assets/js/slides.js"></script>
-    <script src="assets/js/editor.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script>
+        // Código JavaScript básico para navegação
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos de controle
+            const prevBtn = document.getElementById('prev-slide');
+            const nextBtn = document.getElementById('next-slide');
+            const slideContainer = document.getElementById('slide-container');
+            const slideCounter = document.querySelector('.slide-counter');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            
+            // Dados dos slides (versão simplificada para demonstração)
+            const slides = [
+                {
+                    title: "Corregedoria Geral do Foro Extrajudicial",
+                    subtitle: "Apresentação Institucional",
+                    type: "cover",
+                    image: "COGEX.png",
+                    author: "Des. José Jorge Figueiredo dos Anjos",
+                    role: "Corregedor Geral do Foro Extrajudicial",
+                    period: "GESTÃO 2024-2026"
+                },
+                {
+                    title: "A COGEX",
+                    type: "content",
+                    text: "A Corregedoria Geral do Foro Extrajudicial desempenha um papel vital na administração dos serviços públicos delegados pelo Poder Judiciário do Estado do Maranhão. Busca através da atividade orientadora e fiscalizadora, garantir a qualidade, segurança e agilidade da prestação \"extrajurisdicional\" de forma que a entrega \"cogexiana\" traduza em eficiência vez que, como órgão, tem como busca a construção de uma sociedade digna em direitos, justa em valores e socialmente menos desigual.",
+                    image: "COGEX.png"
+                },
+                // Outros slides seriam definidos aqui
+            ];
+            
+            let currentSlideIndex = 0;
+            
+            // Função para renderizar um slide
+            function renderSlide(index) {
+                const slide = slides[index];
+                
+                // Atualizar contador
+                slideCounter.textContent = `Slide ${index + 1} de ${slides.length}`;
+                
+                // Atualizar thumbnails ativas
+                thumbnails.forEach((thumb, i) => {
+                    thumb.classList.toggle('active', i === index);
+                });
+                
+                // Renderizar slide de capa (apenas para demonstração)
+                if (index === 0) {
+                    slideContainer.innerHTML = `
+                        <h2 class="slide-title animate-fadeIn">${slide.title}</h2>
+                        <h3 class="slide-subtitle animate-slideUp">${slide.subtitle}</h3>
+                        <img src="assets/img/${slide.image}" alt="COGEX" class="slide-logo animate-fadeIn">
+                        <p class="slide-author animate-slideUp">${slide.author}</p>
+                        <p class="slide-role animate-slideUp">${slide.role}</p>
+                        <p class="slide-period animate-slideUp">${slide.period}</p>
+                    `;
+                } else {
+                    // Para outros slides, mostraríamos conteúdo adequado ao tipo
+                    slideContainer.innerHTML = `
+                        <h2 class="slide-title animate-fadeIn">${slide.title}</h2>
+                        <div class="slide-content animate-slideUp">
+                            <p>${slide.text}</p>
+                        </div>
+                        ${slide.image ? `<img src="assets/img/${slide.image}" alt="${slide.title}" class="slide-image animate-fadeIn">` : ''}
+                    `;
+                }
+            }
+            
+            // Função para navegar entre slides
+            function navigateSlide(direction) {
+                const newIndex = currentSlideIndex + direction;
+                if (newIndex >= 0 && newIndex < slides.length) {
+                    currentSlideIndex = newIndex;
+                    renderSlide(currentSlideIndex);
+                }
+            }
+            
+            // Adicionar eventos aos botões
+            prevBtn.addEventListener('click', () => navigateSlide(-1));
+            nextBtn.addEventListener('click', () => navigateSlide(1));
+            
+            // Adicionar eventos às miniaturas
+            thumbnails.forEach((thumb, index) => {
+                thumb.addEventListener('click', () => {
+                    currentSlideIndex = index;
+                    renderSlide(currentSlideIndex);
+                });
+            });
+            
+            // Eventos de teclado
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    navigateSlide(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigateSlide(1);
+                }
+            });
+            
+            // Inicializar com o primeiro slide
+            renderSlide(currentSlideIndex);
+        });
+    </script>
 </body>
 </html>
